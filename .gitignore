@@ -1,0 +1,13 @@
+*.opensdf
+*.swp
+*.sdf
+*.suo
+*.obj
+*.tlog
+*.log
+*.pdb
+*.lastbuildstate
+*.user
+GeneratedFiles
+Debug
+Win32

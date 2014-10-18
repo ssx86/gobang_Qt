@@ -1,0 +1,10 @@
+*.opensdf
+*.sdf
+*.suo
+*.obj
+*.tlog
+*.log
+*.pdb
+*.lastbuildstate
+*.user
+Win32

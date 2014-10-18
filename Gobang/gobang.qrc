@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="Gobang">
+    <file>img/black.png</file>
+    <file>img/white.png</file>
+    <file>img/board.jpg</file>
+  </qresource>
+</RCC>
