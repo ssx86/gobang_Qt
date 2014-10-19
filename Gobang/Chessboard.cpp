@@ -16,55 +16,123 @@ COLOR Chessboard::get(int x, int y)
 void Chessboard::set(int x, int y, COLOR status)
 {
     m_data[x][y] = status;
-	update();
+    update(x, y);
 }
 
-void Chessboard::update()
+/*
+ * return the winner color
+*/
+COLOR Chessboard::update(int x, int y)
 {
-	//col
-	COLOR color = Empty;
-	int count = 0;
-	for(int i = 0; i < 19; i++)
-	{
-		count = 0;
-		for(int j = 0; j < 19; j++)
-		{
-			if(get(i, j) == Empty)
-				count = 0;
-			else if(color == get(i, j))
-				count++;
-			else
-			{
-				color = get(i, j);
-				count = 1;
-			}
 
-			if(count == 5)
-				qDebug() << "!!!!!!!!!!!!!!!!!!!!!";
-		}
-	}
-	//row
-	color = Empty;
-	count = 0;
-	for(int j = 0; j < 19; j++)
-	{
-		count = 0;
-		for(int i = 0; i < 19; i++)
-		{
-			if(get(i, j) == Empty)
-				count = 0;
-			else if(color == get(i, j))
-				count++;
-			else
-			{
-				color = get(i, j);
-				count = 1;
-			}
+    //x direction
+    judgeX(x, y);
 
-			if(count == 5)
-				qDebug() << "!!!!!!!!!!!!!!!!!!!!!";
-		}
-	}
-	//lefttop-rightbottom
-	//righttop-leftbottom
+    //y direction
+    judgeY(x, y);
+
+    //0-xy direction
+    judge00_XY(x, y);
+
+    //0y-x0 direction
+    judge0Y_X0(x, y);
+}
+
+
+COLOR Chessboard::judgeX(int x, int y)
+{
+    int tempx, tempy;
+    int count = 1; // count to 5 to win the game
+    COLOR curColor = get(x, y);
+
+    tempx = x; tempy = y;
+    //left
+    while(tempx-1 >= 0 && get(tempx-1, tempy) == curColor)
+    {
+        count++;
+        tempx--;
+    }
+    //right
+    tempx = x; tempy = y;
+    while(tempx+1 < 19 && get(tempx+1, tempy) == curColor)
+    {
+        count++;
+        tempx++;
+    }
+    qDebug() << "the x direction count is :" << count << "  and the color is :" << curColor;
+}
+
+COLOR Chessboard::judgeY(int x, int y)
+{
+    int tempx, tempy;
+    int count = 1; // count to 5 to win the game
+    COLOR curColor = get(x, y);
+
+    tempx = x; tempy = y;
+    //top
+    while(tempy-1 >= 0 && get(tempx, tempy-1) == curColor)
+    {
+        count++;
+        tempy--;
+    }
+    //right
+    tempx = x; tempy = y;
+    while(tempy+1 < 19 && get(tempx, tempy+1) == curColor)
+    {
+        count++;
+        tempy++;
+    }
+    qDebug() << "the Y direction count is :" << count << "  and the color is :" << curColor;
+}
+
+COLOR Chessboard::judge00_XY(int x, int y)
+{
+    int tempx, tempy;
+    int count = 1; // count to 5 to win the game
+    COLOR curColor = get(x, y);
+
+    tempx = x; tempy = y;
+    //lefttop
+    while(tempx-1 >= 0 && tempy-1 >= 0 && get(tempx-1, tempy-1) == curColor)
+    {
+        count++;
+        tempx--;
+        tempy--;
+    }
+    //rightbottom
+    tempx = x; tempy = y;
+    while(tempx+1 < 19 && tempy+1 < 19 && get(tempx+1, tempy+1) == curColor)
+    {
+        count++;
+        tempx++;
+        tempy++;
+    }
+    qDebug() << "the 00_XY direction count is :" << count << "  and the color is :" << curColor;
+
+}
+
+COLOR Chessboard::judge0Y_X0(int x, int y)
+{
+    int tempx, tempy;
+    int count = 1; // count to 5 to win the game
+    COLOR curColor = get(x, y);
+
+    tempx = x; tempy = y;
+    //lefttop
+    while(tempx-1 >= 0 && tempy+1 < 19 && get(tempx-1, tempy+1) == curColor)
+    {
+        count++;
+        tempx--;
+        tempy++;
+    }
+    //rightbottom
+    tempx = x; tempy = y;
+    while(tempx+1 < 19 && tempy-1 >= 0 && get(tempx+1, tempy-1) == curColor)
+    {
+        count++;
+        tempx++;
+        tempy--;
+    }
+    qDebug() << "the 0Y_X0 direction count is :" << count << "  and the color is :" << curColor;
+
 }

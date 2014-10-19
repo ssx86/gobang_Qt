@@ -19,10 +19,15 @@ public:
     void set(int x, int y, COLOR status);
 
 private:
-	void update();
+    COLOR update(int x, int y);
     //chessboard map
     COLOR m_data[19][19];
-	
+
+    COLOR judgeX(int x, int y);
+    COLOR judgeY(int x, int y);
+    COLOR judge00_XY(int x, int y);
+    COLOR judge0Y_X0(int x, int y);
+
 };
 
 #endif // CHESSBOARD_H
