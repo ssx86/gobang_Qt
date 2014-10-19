@@ -27,7 +27,7 @@ public:
     COLOR get(int x, int y);
 
     //set status
-    void set(int x, int y, COLOR status);
+    STATUS set(int x, int y, COLOR status);
 
 private:
     STATUS update(int x, int y);

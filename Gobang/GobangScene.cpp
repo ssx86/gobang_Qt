@@ -1,6 +1,7 @@
 #include "GobangScene.h"
 #include <QGraphicsSceneMouseEvent>
 #include <QColor>
+#include <QMessageBox>
 #include <QDebug>
 
 GobangScene::GobangScene(void)
@@ -59,7 +60,8 @@ void GobangScene::addChessman(int x, int y, COLOR color)
 {
     Qt::GlobalColor brushColor = color == Chessboard::White ? Qt::white : Qt::black;
     addEllipse(left + x * row - r/2, top + y * row - r/2, r, r, QPen(Qt::black), QBrush(brushColor));
-    m_chessboard.set(x, y, color);
+	STATUS status = m_chessboard.set(x, y, color);
+	update(status);
 }
 
 int GobangScene::getCrossPoint(qreal p)
@@ -68,4 +70,22 @@ int GobangScene::getCrossPoint(qreal p)
         if(m_cross[i] > p - row/2)
             return i;
     return 0;
+}
+
+void GobangScene::update(STATUS status)
+{
+	switch(status){
+	case Chessboard::STATUS_WIN:
+		QMessageBox::warning(NULL, "You Win!!", "OK you win!");	
+		break;
+	case Chessboard::STATUS_Forbidden_33:
+		QMessageBox::warning(NULL, "Forbbiden", "Forbbiden as 3*3!");
+		break;
+	case Chessboard::STATUS_Forbidden_44:
+		QMessageBox::warning(NULL, "Forbbiden", "Forbbiden as 4*4!");
+		break;
+	case Chessboard::STATUS_Forbidden_LONG:
+		QMessageBox::warning(NULL, "Forbbiden", "Forbbiden as TOO_LONG!");
+		break;
+	}
 }

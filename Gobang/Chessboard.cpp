@@ -13,12 +13,10 @@ COLOR Chessboard::get(int x, int y)
     return m_data[x][y];
 }
 
-void Chessboard::set(int x, int y, COLOR status)
+STATUS Chessboard::set(int x, int y, COLOR status)
 {
     m_data[x][y] = status;
-    qDebug() << update(x, y);
-    if ( update(x, y) & STATUS_WIN )
-        qDebug() << "ok! you win!";
+	return update(x, y);
 }
 
 /*
@@ -84,6 +82,7 @@ int Chessboard::judgeX(int x, int y)
         count++;
         tempx++;
     }
+	return count;
     //qDebug() << "the x direction count is :" << count << "  and the color is :" << curColor;
 }
 
@@ -108,6 +107,7 @@ int Chessboard::judgeY(int x, int y)
         tempy++;
     }
     //qDebug() << "the Y direction count is :" << count << "  and the color is :" << curColor;
+	return count;
 }
 
 int Chessboard::judge00_XY(int x, int y)
@@ -132,9 +132,8 @@ int Chessboard::judge00_XY(int x, int y)
         tempx++;
         tempy++;
     }
-    if(count == 5)
-        return curColor;
     //qDebug() << "the 00_XY direction count is :" << count << "  and the color is :" << curColor;
+	return count;
 
 }
 
@@ -160,6 +159,8 @@ int Chessboard::judge0Y_X0(int x, int y)
         tempx++;
         tempy--;
     }
+
+	return count;
     //qDebug() << "the 0Y_X0 direction count is :" << count << "  and the color is :" << curColor;
 
 }

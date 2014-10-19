@@ -19,6 +19,7 @@ protected:
 private:
 	void addChessman(int x, int y, COLOR color);
 	int getCrossPoint(qreal p);
+	void update(STATUS status);
 
 	int rows;
 	qreal left;
