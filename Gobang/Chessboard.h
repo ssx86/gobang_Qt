@@ -1,6 +1,8 @@
 #ifndef CHESSBOARD_H
 #define CHESSBOARD_H
 
+#include <map>
+
 #define COLOR unsigned char
 #define STATUS unsigned char
 
@@ -39,6 +41,7 @@ private:
     int judge00_XY(int x, int y);
     int judge0Y_X0(int x, int y);
 
+	std::map<unsigned char, int> judge_map;
 };
 
 #endif // CHESSBOARD_H

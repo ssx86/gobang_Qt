@@ -2,10 +2,16 @@
 #include <memory>
 #include <QDebug>
 
-
 Chessboard::Chessboard()
 {
     memset(m_data, 0, sizeof(19*19*sizeof(COLOR)));
+
+	//初始化三连、四连映射表
+	//两端空白棋子不计
+	//连三的情况：	** *, * **,  ***
+	//				0x0D, 0x0B, 0x07
+	//连四的情况：****, * ***, ** **, *** *
+
 }
 
 COLOR Chessboard::get(int x, int y)
